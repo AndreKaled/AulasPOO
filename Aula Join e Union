@@ -1,0 +1,74 @@
+CREATE DATABASE CLUBE;
+USE CLUBE;
+
+DROP TABLE IF EXISTS MEMBRO;
+DROP TABLE IF EXISTS FUNCIONARIO;
+DROP TABLE IF EXISTS AMBIENTE;
+
+CREATE TABLE AMBIENTE(
+	codigo INT AUTO_INCREMENT,
+    descricao VARCHAR(100) NOT NULL,
+    classe_exigida VARCHAR(50) NOT NULL,
+    PRIMARY KEY(codigo)
+);
+
+CREATE TABLE Funcionario(
+	codigo INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(150) NOT NULL,
+    cargo VARCHAR(50) NOT NULL,
+    data_admissao DATE NOT NULL,
+    salario FLOAT NOT NULL,
+    cod_ambiente int,
+    FOREIGN KEY (cod_ambiente) REFERENCES Ambiente(codigo)
+);
+
+INSERT INTO Ambiente(descricao, classe_exigida) VALUES ('Gerencia','OURO');
+INSERT INTO Ambiente(descricao, classe_exigida) VALUES ('Restaurante Torre','OURO');
+INSERT INTO Ambiente(descricao, classe_exigida) VALUES ('Piscina','BRONZE');
+INSERT INTO Ambiente(descricao, classe_exigida) VALUES ('Hipodromo','PRATA');
+INSERT INTO Ambiente(descricao, classe_exigida) VALUES ('Cassino','OURO');
+
+SELECT * FROM Ambiente;
+
+CREATE TABLE Membro(
+	matricula INT PRIMARY KEY,
+	nome VARCHAR(70) NOT NULL,
+    sobrenome VARCHAR(50) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    profissao VARCHAR(100) NOT NULL,
+    renda_atual FLOAT NOT NULL,
+	estado VARCHAR(15) NOT NULL CHECK(estado='ATIVO' OR estado='SUSPENSO' OR estado='CANCELADO'),
+    classe VARCHAR(15) NOT NULL CHECK(classe='BRONZE' OR classe='PRATA' OR classe='OURO')
+);
+
+INSERT INTO Membro
+VALUES 	(1, 'Maria', 'Silva', '1980-05-20', 'Médico', 55000, 'ATIVO', 'OURO'), 
+		(2, 'José', 'Aparecida', '1984-12-10', 'Desenvolvedor de Software', 20000, 'SUSPENSO', 'BRONZE'),
+		(3, 'Ana', 'Santos', '1975-05-22', 'Advogado', 22000, 'ATIVO', 'PRATA'),
+		(4, 'João', 'Alves', '1970-03-29', 'Professor', 10000, 'CANCELADO', 'BRONZE'),
+		(5, 'Thiago', 'Silva', '1972-10-15', 'CEO de Empresa', 85000, 'ATIVO', 'OURO'),
+		(6, 'Josefa', 'Barbosa', '1979-02-10', 'Empresario', 36000, 'ATIVO', 'OURO'),
+		(7, 'Renata', 'Gomes', '1980-09-11', 'Analista Financeiro', 26000, 'ATIVO', 'PRATA'),
+		(8, 'Juliana', 'Martins', '1989-05-21', 'Engenheiro de Inteligência Artificial', 28000, 'ATIVO', 'PRATA'),
+		(9, 'Anderson', 'Vieira', '1965-09-27', 'Empresário', 27000, 'ATIVO', 'PRATA'),
+		(10, 'Felipe', 'Barbosa', '1987-04-12', 'Médico', 46000, 'ATIVO', 'OURO');        
+
+
+INSERT INTO Funcionario (nome, cargo, data_admissao, salario, cod_Ambiente)
+VALUES 	('Giovanni','Gerente Geral','2000-01-01',20000.00,1),
+		('Sofia','Recepcionista','2000-01-15',3500,2),
+        ('Alícia','Recepcionista','2000-01-15',2500,3),
+        ('Anita','Recepcionista','2000-01-15',2500,4),        
+		('Andrey','Recepcionista','2000-01-15',3500,5),
+        ('Liz','Garçonete','2000-03-21',3000,null),
+        ('Lian','Garçonete','2000-04-10',3000,5);
+
+select * from Funcionario inner join Ambiente on Funcionario.cod_ambiente = Ambiente.codigo;
+select * from Funcionario left join Ambiente on Funcionario.cod_ambiente = Ambiente.codigo;
+select * from Funcionario right join Ambiente on Funcionario.cod_ambiente = Ambiente.codigo;
+select * from Funcionario cross join Ambiente;
+
+-- uniao
+select * from Funcionario where codigo <=2
+union
+select * from Funcionario where codigo >=6;
