@@ -72,3 +72,15 @@ select * from Funcionario cross join Ambiente;
 select * from Funcionario where codigo <=2
 union
 select * from Funcionario where codigo >=6;
+
+#	USANDO VIEW
+create view Funcionario_Ambiente as 
+select F.codigo, F.nome, A.descricao
+from Funcionario F
+inner join Ambiente A
+on F.cod_ambiente = A.codigo;
+
+select * from Funcionario_Ambiente where nome = 'Sofia';
+
+#exercicio
+#criar uma tabela usa(relacionamento) e o registro de que membro utilizou um ambiente
