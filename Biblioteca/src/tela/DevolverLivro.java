@@ -13,7 +13,7 @@ public class DevolverLivro extends EmprestarLivro{
 	}
 	
 	public void reconfiguraTabela() {
-		
+		lbEmprestar.setText("Devolver Livros");
 		configuraTabela();
 	}
 	

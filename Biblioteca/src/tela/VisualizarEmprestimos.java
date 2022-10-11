@@ -2,6 +2,8 @@ package tela;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.text.DateFormat;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +17,8 @@ import Interfaces.Constants;
 
 public class VisualizarEmprestimos extends JFrame implements Constants {
 
+	Date dataHoje = new Date();
+	DateFormat formataData = DateFormat.getDateInstance(DateFormat.FULL);
 	JPanel titulo, panelTabela, container;
 	JLabel lbTitulo, lbDadosFuncionario, lbDadosLivro;
 	JLabel nomeAdvocacia, data, lbEmprestar;
@@ -49,11 +53,11 @@ public class VisualizarEmprestimos extends JFrame implements Constants {
 
 		titulo.add(lbTitulo);
 
-		lbEmprestar = new JLabel("Emprestar livros");
+		lbEmprestar = new JLabel("Visualizar Empréstimos");
 		nomeAdvocacia = new JLabel("Kauadré Advocacia");
-		data = new JLabel("DATA");
+		data = new JLabel("" +formataData.format(dataHoje));
 
-		data.setBounds(930, 170, 100, 20);
+		data.setBounds(770, 170, 230, 20);
 		lbTitulo.setBounds(370, 100, 350, 20);
 		lbEmprestar.setBounds(20, 170, 150, 20);
 		nomeAdvocacia.setBounds(20, 10, 150, 20);

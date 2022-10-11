@@ -1,11 +1,8 @@
 package tela;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,12 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import Interfaces.Constants;
-
-public class EmprestarLivro extends JFrame implements Constants{
-	DateFormat formataData = DateFormat.getDateInstance(DateFormat.FULL);
-	Date dataHoje = new Date();
-	
+public class Biblioteca extends JFrame {
 	JPanel titulo, dadosFuncionario, dadosLivro,panelTabela, container;
 	JLabel lbTitulo, lbDadosFuncionario, lbDadosLivro;
 	JLabel nomeAdvocacia, data, lbEmprestar;
@@ -36,55 +28,30 @@ public class EmprestarLivro extends JFrame implements Constants{
 	TableModel tableModel;
 	JTable tabela;
 	Font fonteTexto, fonte, btFonte;
-	
-	JButton pesquisarLivro, pesquisarMatricula, btLimpar,btPesquisaExemplar,btSalvar;
-	
 
-	public EmprestarLivro() {
-		super("Emprestar Livro");
-		
-		setSize(1030, 880);
+	JButton pesquisarLivro, pesquisarMatricula, btLimpar,btPesquisaExemplar;
+
+	public Biblioteca() {
+		super("Bibloteca");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(1020, 850);
 		setLayout(null);
-		container = (JPanel) getContentPane();
-		
-		//pensei num vermelho mas nao ficou legal: 227, 32, 32. entÃ£o vou deixar azul
-		container.setBackground(AZUL);
 
 		titulo = new JPanel();
 		dadosFuncionario = new JPanel();
 		dadosLivro = new JPanel();
-		
-		configuraTitulo();
-		configuraDadosFuncionario();
-		configuraTabela();
-		configuraDadosLivro();
-		tratandoEventos();
-		configuraSalvar();
-		
-		add(titulo);
-		pesquisarLivro = new JButton("PESQUISAR");
-		dadosLivro.add(pesquisarLivro);
-		setVisible(true);
-	}
-	
-	public void configuraSalvar(){
-		btSalvar = new JButton("SALVAR");
-		btSalvar.setFont(btFonte);
-		btSalvar.setBounds(450,panelTabela.getY()+panelTabela.getHeight()+10,100,25);
-		add(btSalvar);
-	}
-	
-	public void configuraTitulo() {
+		container = (JPanel) getContentPane();
+		container.setBackground(Color.WHITE);
 		dadosFuncionario.setLayout(null);
 
 		lbTitulo = new JLabel("Sistema Para Controle de Biblioteca");
 		lbDadosFuncionario = new JLabel("Dados do Funcionario");
 		lbDadosLivro = new JLabel("Dados dos Livros");
 
-		titulo.setBounds(DISTANCIA_ESQUERDA, DISTANCIA_ALTURA, 1000, 200);
-		titulo.setLayout(null);
-		
-		
+		titulo.setBounds(0, 0, 1000, 200);
+		titulo.setLayout(new BorderLayout());
+		dadosFuncionario.setBounds(0, 230, 1000, 150);
+		dadosLivro.setBounds(0, 410, 1000, 100);
 
 		dadosLivro.add(lbDadosLivro);
 		dadosFuncionario.add(lbDadosFuncionario);
@@ -92,34 +59,34 @@ public class EmprestarLivro extends JFrame implements Constants{
 
 		lbEmprestar = new JLabel("Emprestar livros");
 		nomeAdvocacia = new JLabel("Kauadré Advocacia");
-		data = new JLabel("" +formataData.format(dataHoje));
+		data = new JLabel("DATA");
 
-		data.setBounds(770, 170, 230, 20);
+		data.setBounds(930, 170, 100, 20);
 		lbTitulo.setBounds(370, 100, 350, 20);
 		lbEmprestar.setBounds(20, 170, 150, 20);
 		nomeAdvocacia.setBounds(20, 10, 150, 20);
-		lbTitulo.setFont(new Font("Arial", 2, 20));
+		lbTitulo.setFont(new Font("Arial", 1, 20));
 
 		titulo.add(nomeAdvocacia);
 		titulo.add(data);
 		titulo.add(lbEmprestar);
 		titulo.add(new JPanel());
+
+		configuraDadosFuncionario();
+		configuraTabela();
+		configuraDadosLivro();
+
 		
-		//mudando cores do texto
-		data.setForeground(Color.WHITE);
-		nomeAdvocacia.setForeground(Color.WHITE);
-		lbEmprestar.setForeground(Color.WHITE);
-		lbTitulo.setForeground(Color.WHITE);
 		
-		//mudando cor do fundo do painel
-		titulo.setBackground(FUNDOPRETO);
+		add(titulo);
+		pesquisarLivro = new JButton("PESQUISAR");
+		dadosLivro.add(pesquisarLivro);
+		setVisible(true);
 	}
 
 	public void configuraDadosFuncionario(){
-		dadosFuncionario.setBounds(DISTANCIA_ESQUERDA, DISTANCIA_ALTURA+210, 1000, 150);
-		
 		// instanciando componentes de Dados Funcionario
-				matricula = new JLabel("Matricula");
+				matricula = new JLabel("Matrícula");
 				btLimpar = new JButton("LIMPAR");
 				nome = new JLabel("Nome");
 				txtNome = new JTextField();
@@ -130,6 +97,9 @@ public class EmprestarLivro extends JFrame implements Constants{
 				
 
 				// organizando fontes
+				fonte = new Font("Arial", 1, 16);
+				btFonte = new Font("Arial", 1, 13);
+				fonteTexto = new Font("Arial", 1, 13);
 				txtNome.setFont(fonte);
 				pesquisarMatricula.setFont(btFonte);
 				btLimpar.setFont(btFonte);
@@ -159,18 +129,9 @@ public class EmprestarLivro extends JFrame implements Constants{
 				dadosFuncionario.add(txtNome);
 				dadosFuncionario.add(btLimpar);
 				add(dadosFuncionario);
-				
-				//mudando cores do texto
-				numeroOAB.setForeground(Color.WHITE);
-				matricula.setForeground(Color.WHITE);
-				nome.setForeground(Color.WHITE);
-				
-				//mudando fundo do painel
-				dadosFuncionario.setBackground(FUNDOPRETO);
 	}
 	public void configuraDadosLivro(){
 		dadosLivro.setLayout(null);
-		dadosLivro.setBounds(DISTANCIA_ESQUERDA, DISTANCIA_ALTURA+370, 1000, 100);
 		
 		//instanciando componentes do painel
 		btPesquisaExemplar = new JButton("PESQUISAR");
@@ -192,48 +153,26 @@ public class EmprestarLivro extends JFrame implements Constants{
 		dadosLivro.add(txtNumeroExemplar);
 		dadosLivro.add(btPesquisaExemplar);
 		add(dadosLivro);
-		
-		//mudando cor do texto
-		numeroExemplar.setForeground(Color.WHITE);
-		
-		//mudando fundo do painel
-		dadosLivro.setBackground(FUNDOPRETO);
 	}
 	
 	public void configuraTabela(){
 		panelTabela = new JPanel();
 		panelTabela.setLayout(null);
 		
-		//instanciacao de componentes do painel
+		//instanciação de componentes do painel
 		tableModel = new DefaultTableModel(conteudo,colunas);
 		tabela = new JTable(tableModel);
 		scroll = new JScrollPane(tabela);
 		
 		//posicionando componentes
-		panelTabela.setBounds(DISTANCIA_ESQUERDA,DISTANCIA_ALTURA+480,1000,300);
-		scroll.setBounds(10,10,980,280);
+		panelTabela.setBounds(0,520,1000,300);
+		scroll.setBounds(10,10,980,290);
 		
 		//adicionando componentes
 		panelTabela.add(scroll);
 		add(panelTabela);
-		
-		//mudando fundo do painel
-		panelTabela.setBackground(FUNDOPRETO);
 	}
-	
-	public void tratandoEventos() {
-		btLimpar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//limpando todos os campus no painel
-				txtNumeroOAB.setText(null);
-				txtNome.setText(null);
-				txtMatricula.setText(null);
-				
-			}
-			
-		});
+	public static void main(String[] args) {
+		new Biblioteca();
 	}
-	
 }

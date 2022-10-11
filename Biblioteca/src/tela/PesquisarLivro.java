@@ -2,6 +2,10 @@ package tela;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.util.Date;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -19,6 +23,8 @@ import Interfaces.Constants;
 
 public class PesquisarLivro extends JFrame implements Constants{
 
+	Date dataHoje = new Date();
+	DateFormat formataData = DateFormat.getDateInstance(DateFormat.FULL);
 	ButtonGroup gpBts;
 	JPanel titulo, panelTabela, container;
 	JLabel lbTitulo, lbDadosFuncionario, lbDadosLivro;
@@ -47,8 +53,21 @@ public class PesquisarLivro extends JFrame implements Constants{
 		configuraTitulo();
 		configuraTipoPesquisa();
 		configuraResultado();
+		eventos();
 		
 		setVisible(true);
+	}
+	
+	public void eventos(){
+		btNovaPesquisa.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				txtPesquisa.setText(null);
+				gpBts.clearSelection();
+			}
+			
+		});
 	}
 	
 	public void configuraResultado(){
@@ -124,6 +143,9 @@ public class PesquisarLivro extends JFrame implements Constants{
 		panelGpBts.add(btAutor);
 		panelGpBts.add(btLivro);
 		panelGpBts.add(btEditora);
+		gpBts.add(btAutor);
+		gpBts.add(btLivro);
+		gpBts.add(btEditora);
 		painelPesquisa.add(panelGpBts);
 		painelPesquisa.add(textinhoBonito);
 		painelPesquisa.add(txtPesquisa);
@@ -144,15 +166,15 @@ public class PesquisarLivro extends JFrame implements Constants{
 
 		titulo.add(lbTitulo);
 
-		lbEmprestar = new JLabel("Emprestar livros");
+		lbEmprestar = new JLabel("Pesquisar livros");
 		nomeAdvocacia = new JLabel("Kauadré Advocacia");
-		data = new JLabel("DATA");
+		data = new JLabel("" +formataData.format(dataHoje));
 
-		data.setBounds(930, 170, 100, 20);
+		data.setBounds(770, 170, 230, 20);
 		lbTitulo.setBounds(370, 100, 350, 20);
 		lbEmprestar.setBounds(20, 170, 150, 20);
 		nomeAdvocacia.setBounds(20, 10, 150, 20);
-		lbTitulo.setFont(new Font("Arial", 2, 20));
+		lbTitulo.setFont(new Font("Arial", 1, 20));
 
 		titulo.add(nomeAdvocacia);
 		titulo.add(data);

@@ -3,6 +3,7 @@ package tela;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,7 +17,7 @@ public class Principal extends JFrame implements Constants{
 	private JButton btPesquisar;
 
 	public Principal() {
-		setSize(1030, 830);
+		setSize(1030, 850);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 
@@ -34,15 +35,15 @@ public class Principal extends JFrame implements Constants{
 		painelBotoes.setLayout(null);
 		painelBotoes.setBounds(DISTANCIA_ESQUERDA, DISTANCIA_ALTURA, 1000, 800);
 
-		btDevolver = new JButton("DEVOLVER");
-		btEmprestar = new JButton("EMPRESTAR");
-		btVisualizar = new JButton("VISUALIZAR EMPRÉSTIMOS");
-		btPesquisar = new JButton("PESQUISAR");
+		btDevolver = new JButton("Devolver Livros");
+		btEmprestar = new JButton("Emprestar Livros");
+		btVisualizar = new JButton("Visualizar Empréstimos");
+		btPesquisar = new JButton("Pesquisar Livros");
 
 		btDevolver.setBounds(10, 10, 480, 390);
 		btEmprestar.setBounds(510, 10, 480, 390);
-		btVisualizar.setBounds(10,410,480,390);
-		btPesquisar.setBounds(510,410,480,480);
+		btVisualizar.setBounds(10,410,480,380);
+		btPesquisar.setBounds(510,410,480,380);
 
 		painelBotoes.add(btEmprestar);
 		painelBotoes.add(btDevolver);
