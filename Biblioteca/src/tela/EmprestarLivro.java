@@ -16,7 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-public class EmprestarLivro extends JFrame {
+import Interfaces.Constants;
+
+public class EmprestarLivro extends JFrame implements Constants{
 	JPanel titulo, dadosFuncionario, dadosLivro,panelTabela, container;
 	JLabel lbTitulo, lbDadosFuncionario, lbDadosLivro;
 	JLabel nomeAdvocacia, data, lbEmprestar;
@@ -24,15 +26,15 @@ public class EmprestarLivro extends JFrame {
 	JLabel numeroExemplar;
 	JTextField txtNumeroExemplar;
 	JTextField txtMatricula, txtNumeroOAB, txtNome;
-	String[] colunas = {"NÂ° EXEMPLAR","NOME","EDITORA","AÃ‡ÃƒO"};
+	String[] colunas = {"N° EXEMPLAR","NOME","EDITORA","AÇÃO"};
 	Object[][] conteudo = {};
 	JScrollPane scroll;
 	TableModel tableModel;
 	JTable tabela;
 	Font fonteTexto, fonte, btFonte;
-	final static Color FUNDOPRETO = new Color(29, 34, 36), AZUL = new Color(74, 149, 168);
+	
 	JButton pesquisarLivro, pesquisarMatricula, btLimpar,btPesquisaExemplar;
-	final int DISTANCIA_ESQUERDA = 6,DISTANCIA_ALTURA = 6;
+	
 
 	public EmprestarLivro() {
 		super("Emprestar Livro");
@@ -77,7 +79,7 @@ public class EmprestarLivro extends JFrame {
 		titulo.add(lbTitulo);
 
 		lbEmprestar = new JLabel("Emprestar livros");
-		nomeAdvocacia = new JLabel("KauadrÃ© Advocacia");
+		nomeAdvocacia = new JLabel("Kauadré Advocacia");
 		data = new JLabel("DATA");
 
 		data.setBounds(930, 170, 100, 20);
@@ -105,20 +107,17 @@ public class EmprestarLivro extends JFrame {
 		dadosFuncionario.setBounds(DISTANCIA_ESQUERDA, DISTANCIA_ALTURA+210, 1000, 150);
 		
 		// instanciando componentes de Dados Funcionario
-				matricula = new JLabel("MatrÃ­cula");
+				matricula = new JLabel("Matricula");
 				btLimpar = new JButton("LIMPAR");
 				nome = new JLabel("Nome");
 				txtNome = new JTextField();
 				txtMatricula = new JTextField();
 				pesquisarMatricula = new JButton("PESQUISAR");
-				numeroOAB = new JLabel("NÃºmero OAB");
+				numeroOAB = new JLabel("Número OAB");
 				txtNumeroOAB = new JTextField();
 				
 
 				// organizando fontes
-				fonte = new Font("Arial", 1, 16);
-				btFonte = new Font("Arial", 1, 13);
-				fonteTexto = new Font("Arial", 1, 13);
 				txtNome.setFont(fonte);
 				pesquisarMatricula.setFont(btFonte);
 				btLimpar.setFont(btFonte);
@@ -163,7 +162,7 @@ public class EmprestarLivro extends JFrame {
 		
 		//instanciando componentes do painel
 		btPesquisaExemplar = new JButton("PESQUISAR");
-		numeroExemplar = new JLabel("NÂ° Exemplar");
+		numeroExemplar = new JLabel("N° Exemplar");
 		txtNumeroExemplar = new JTextField();
 		
 		//posicionando componentes do painel

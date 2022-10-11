@@ -7,10 +7,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Principal extends JFrame {
+import Interfaces.Constants;
 
-	JButton btDevolver, btEmprestar;
+public class Principal extends JFrame implements Constants{
+
+	JButton btDevolver, btEmprestar,btVisualizar;
 	JPanel container, painelBotoes;
+	private JButton btPesquisar;
 
 	public Principal() {
 		setSize(1030, 830);
@@ -29,16 +32,22 @@ public class Principal extends JFrame {
 		painelBotoes = new JPanel();
 		painelBotoes.setBackground(EmprestarLivro.FUNDOPRETO);
 		painelBotoes.setLayout(null);
-		painelBotoes.setBounds(6, 6, 1000, 200);
+		painelBotoes.setBounds(DISTANCIA_ESQUERDA, DISTANCIA_ALTURA, 1000, 800);
 
 		btDevolver = new JButton("DEVOLVER");
 		btEmprestar = new JButton("EMPRESTAR");
+		btVisualizar = new JButton("VISUALIZAR EMPRÉSTIMOS");
+		btPesquisar = new JButton("PESQUISAR");
 
-		btDevolver.setBounds(10, 10, 480, 90);
-		btEmprestar.setBounds(500, 10, 480, 90);
+		btDevolver.setBounds(10, 10, 480, 390);
+		btEmprestar.setBounds(510, 10, 480, 390);
+		btVisualizar.setBounds(10,410,480,390);
+		btPesquisar.setBounds(510,410,480,480);
 
 		painelBotoes.add(btEmprestar);
 		painelBotoes.add(btDevolver);
+		painelBotoes.add(btVisualizar);
+		painelBotoes.add(btPesquisar);
 
 		add(painelBotoes);
 	}
@@ -62,6 +71,26 @@ public class Principal extends JFrame {
 
 			}
 
+		});
+		
+		btVisualizar.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new VisualizarEmprestimos();
+				
+			}
+			
+		});
+		
+		btPesquisar.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new PesquisarLivro();
+				
+			}
+			
 		});
 	}
 
