@@ -74,13 +74,13 @@ public class Principal extends JFrame implements Constants {
 		painelBotoes.add(menu);
 
 		menuCadastro = new JMenu("Cadastro");
-		menuOperacoes = new JMenu("Operações");
+		menuOperacoes = new JMenu("OperaÃ§Ãµes");
 
 		// alterando cor do texto do menu
 		menuCadastro.setForeground(Color.WHITE);
 		menuOperacoes.setForeground(Color.WHITE);
 
-		funcionarioItem = new JMenuItem("Funcionário");
+		funcionarioItem = new JMenuItem("FuncionÃ¡rio");
 		livroItem = new JMenuItem("Livros");
 		editoraItem = new JMenuItem("Editora");
 		autorItem = new JMenuItem("Autor");
@@ -190,7 +190,7 @@ public class Principal extends JFrame implements Constants {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				new Autor();
+				new CadastraAutor();
 			}
 			
 		});
