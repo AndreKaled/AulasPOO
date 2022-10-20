@@ -9,6 +9,10 @@ public class CadastraAutor extends Cadastro implements Constants{
 		setSize(ALTURA,LARGURA);
 		
 		
+		
+		
+		
+		
 		configuraPaineis();
 		
 		setVisible(true);
