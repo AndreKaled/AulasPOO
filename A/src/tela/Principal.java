@@ -41,7 +41,7 @@ public class Principal extends JFrame implements Constants {
 	private JMenu menuOperacoes;
 
 	public Principal() {
-		setSize(ALTURA,LARGURA);
+		setSize(ALTURA, LARGURA);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Abacate");
 		setLayout(null);
@@ -51,7 +51,7 @@ public class Principal extends JFrame implements Constants {
 		configuraBotoes();
 		confMenuBar();
 		confTitulo();
-		
+
 		tratandoEventos();
 		setVisible(true);
 	}
@@ -74,24 +74,24 @@ public class Principal extends JFrame implements Constants {
 		painelBotoes.add(menu);
 
 		menuCadastro = new JMenu("Cadastro");
-		menuOperacoes = new JMenu("OperaÃ§Ãµes");
+		menuOperacoes = new JMenu("Operações");
 
 		// alterando cor do texto do menu
 		menuCadastro.setForeground(Color.WHITE);
 		menuOperacoes.setForeground(Color.WHITE);
 
-		funcionarioItem = new JMenuItem("FuncionÃ¡rio");
+		funcionarioItem = new JMenuItem("Funcionário");
 		livroItem = new JMenuItem("Livros");
 		editoraItem = new JMenuItem("Editora");
 		autorItem = new JMenuItem("Autor");
 		areaItem = new JMenuItem("Area advocacia");
 		sairItem = new JMenuItem("Sair");
-		
+
 		emprestarItem = new JMenuItem("Emprestar");
 		devolverItem = new JMenuItem("Devolver");
 		pesquisarItem = new JMenuItem("Pesquisar");
 		visualizarItem = new JMenuItem("Visualizar");
-		
+
 		menuCadastro.add(funcionarioItem);
 		menuCadastro.add(livroItem);
 		menuCadastro.add(editoraItem);
@@ -99,7 +99,7 @@ public class Principal extends JFrame implements Constants {
 		menuCadastro.add(areaItem);
 		menuCadastro.add(sairItem);
 
-		//adicionando teclas de atalho
+		// adicionando teclas de atalho
 		sairItem.setMnemonic('S');
 		funcionarioItem.setMnemonic('F');
 		livroItem.setMnemonic('L');
@@ -185,65 +185,98 @@ public class Principal extends JFrame implements Constants {
 	}
 
 	public void tratandoEventos() {
-		autorItem.addActionListener(new ActionListener(){
+		livroItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new CadastraLivro();
+
+			}
+
+		});
+
+		editoraItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new CadastraEditora();
+
+			}
+
+		});
+
+		areaItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new CadastraAreaAdvocacia();
+
+			}
+
+		});
+
+		autorItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 				new CadastraAutor();
 			}
-			
+
 		});
-		visualizarItem.addActionListener(new ActionListener(){
+		visualizarItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VisualizarEmprestimos();
-				
+
 			}
-			
+
 		});
-		
-		emprestarItem.addActionListener(new ActionListener(){
+
+		emprestarItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new EmprestarLivro();
-				
+
 			}
-			
+
 		});
-		
-		pesquisarItem.addActionListener(new ActionListener(){
+
+		pesquisarItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new PesquisarLivro();
-				
+
 			}
-			
+
 		});
-		
-		devolverItem.addActionListener(new ActionListener(){
+
+		devolverItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new DevolverLivro();
-				
+
 			}
-			
+
 		});
-		
-		sairItem.addActionListener(new ActionListener(){
+
+		sairItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
-				
+
 			}
-			
+
 		});
-		
+
 		panelEmprestar.addMouseListener(new MouseListener() {
 
 			@Override
