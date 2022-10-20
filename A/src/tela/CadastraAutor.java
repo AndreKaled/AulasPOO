@@ -2,11 +2,12 @@ package tela;
 
 import Interfaces.Constants;
 
-public class Autor extends Cadastro implements Constants{
+public class CadastraAutor extends Cadastro implements Constants{
 
-	public Autor(){
+	public CadastraAutor(){
 		setLayout(null);
 		setSize(ALTURA,LARGURA);
+		
 		
 		configuraPaineis();
 		
