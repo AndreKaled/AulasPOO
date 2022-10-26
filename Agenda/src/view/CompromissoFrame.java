@@ -2,14 +2,20 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import controller.CompromissoController;
+import model.Compromisso;
 
 public class CompromissoFrame extends JFrame{
 	private JLabel lbHoraC, lbDataC, lbContatoC, lbObservacaoC,lbLocaliza;
@@ -121,6 +127,46 @@ public class CompromissoFrame extends JFrame{
 			
 		});
 		
+		btnSalvar.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				CompromissoController cc = new CompromissoController();
+				try {
+					cc.salvar(new SimpleDateFormat("dd/MM/yyyy").parse(txtDataC.getText()), txtHoraC.getText(), txtContatoC.getText(), txtObservacaoC.getText());
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch(ParseException e){
+					e.printStackTrace();
+				}
+			}
+			
+		});
+		
+		btnLocalizar.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+					localizar();
+			}
+		});
+	}
+	
+	private void localizar() {
+		// TODO Auto-generated method stub
+		CompromissoController comp = new CompromissoController();
+		try {
+			Compromisso c = comp.buscaCompromissoPorNome(txtLocaliza.getText());
+			txtDataC.setText(new SimpleDateFormat("dd/MM/yyyy").format(c.getDataCompromisso()));
+			txtHoraC.setText(c.getHoraCompromisso());
+			txtContatoC.setText(c.getContato().getNome());
+			txtObservacaoC.setText(c.getObservacao());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {

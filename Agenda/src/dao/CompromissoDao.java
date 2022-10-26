@@ -13,7 +13,7 @@ public class CompromissoDao extends GenericDao{
 
 	public void salvar(Compromisso compromisso) throws SQLException{
 		String insert = "INSERT INTO compromisso (dataCompromisso,contato,observacao,horaCompromisso) VALUES (?,?,?,?)";
-		save(insert,compromisso.getDataCompromisso(),compromisso.getContato(),compromisso.getObservacao(),compromisso.getHoraCompromisso());
+		save(insert,compromisso.getDataCompromisso(),compromisso.getContato().getNome(),compromisso.getObservacao(),compromisso.getHoraCompromisso());
 	}
 	
 	public void alterar (Compromisso compromisso) throws SQLException {
@@ -59,22 +59,24 @@ public class CompromissoDao extends GenericDao{
         return compromissos;
     }
     
-    public Compromisso findByCodigo(int codigo) throws SQLException {
-        String select = "SELECT * FROM COMPROMISSOS WHERE codigo = ?";
+    public Compromisso findByName(String name) throws SQLException {
+        String select = "SELECT * FROM COMPROMISSO WHERE contato = ?";
         Compromisso compromisso = null;
         PreparedStatement stmt = 
 			getConnection().prepareStatement(select);
 			
-        stmt.setInt(1, codigo);
+        stmt.setString(1, name);
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
             compromisso = new Compromisso();
-            compromisso.setCodigo(rs.getInt("cod"));
+            compromisso.setCodigo(rs.getInt("codigo"));
             compromisso.setDataCompromisso(rs.getDate("dataCompromisso"));
            
+            Contato contato = new Contato();
+            contato.setNome((rs.getString("contato")));
             
-            //compromisso.setContato(rs.getInt("contato"));
+            compromisso.setContato(contato);
             compromisso.setObservacao(rs.getString("observacao"));
             compromisso.setHoraCompromisso(rs.getString("horaCompromisso"));
         }

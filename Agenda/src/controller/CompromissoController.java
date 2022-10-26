@@ -59,8 +59,8 @@ public class CompromissoController {
         new CompromissoDao().excluir(id);
 	}
 	
-	public Compromisso buscaCompromissoPorCodigo(int codigo) throws SQLException {
+	public Compromisso buscaCompromissoPorNome(String nome) throws SQLException {
         CompromissoDao dao = new CompromissoDao();
-        return dao.findByCodigo(codigo);
+        return dao.findByName(nome);
     }
 }
