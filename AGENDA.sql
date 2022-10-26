@@ -1,11 +1,8 @@
---
--- Table structure for table `contatos`
---
 create database Agenda;
 use agenda;
 
 DROP TABLE IF EXISTS Contatos;
-DROP TABLE IF EXISTS Compromissos;
+DROP TABLE IF EXISTS Compromisso;
 
 CREATE TABLE contatos (
   ID bigint NOT NULL AUTO_INCREMENT,
@@ -22,14 +19,14 @@ CREATE TABLE contatos (
 
 SELECT * FROM Contatos;
 
-create table Compromissos(
+create table Compromisso(
 	codigo int AUTO_INCREMENT primary key,
 	dataCompromisso date not null,
-    contato bigint,
-    observacao varchar(50),
+    contato varchar(50),
+    observacao varchar(500),
     horaCompromisso varchar(5),
     
-    foreign key (contato) references Contatos(ID) 
+    foreign key (contato) references Contatos(nome) 
 );
 
 create table teste(
