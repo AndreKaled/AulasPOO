@@ -134,19 +134,8 @@ public class CompromissoFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				CompromissoController cc = new CompromissoController();
-				try {
-					cc.salvar(new SimpleDateFormat("dd/MM/yyyy").parse(txtDataC.getText()), txtHoraC.getText(),
-							txtContatoC.getText(), txtObservacaoC.getText());
-					JOptionPane.showMessageDialog(null, "Compromisso Salvo com sucesso!");
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "Impossível salvar compromisso!");
-				} catch (ParseException e) {
-					JOptionPane.showMessageDialog(null, "Data possui formato inválido!\n");
-				}
+				salvar();
 			}
-
 		});
 
 		btnLocalizar.addActionListener(new ActionListener() {
@@ -177,6 +166,24 @@ public class CompromissoFrame extends JFrame {
 		});
 	}
 
+	public void salvar() {
+		CompromissoController cc = new CompromissoController();
+		try {
+			cc.salvar(new SimpleDateFormat("dd/MM/yyyy").parse(txtDataC.getText()), txtHoraC.getText(),
+					txtContatoC.getText(), txtObservacaoC.getText());
+			JOptionPane.showMessageDialog(null, "Compromisso Salvo com sucesso!");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Impossível salvar compromisso!");
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "Data possui formato inválido!\n");
+		} catch (NullPointerException e) {
+			JOptionPane.showMessageDialog(null, "Complete os dados antes de salvar!\n");
+		}
+		compromissoList = new CompromissoController().listaCompromissos();
+		limpar();
+	}
+
 	protected void excluir() {
 		// TODO Auto-generated method stub
 		CompromissoController cc = new CompromissoController();
@@ -187,7 +194,7 @@ public class CompromissoFrame extends JFrame {
 			JOptionPane.showMessageDialog(this, "Compromisso excluido!");
 			limpar();
 			compromissoList = new ContatoController().listaContatos();
-		} catch (SQLException e) {
+		} catch (SQLException | ClassCastException e) {
 			JOptionPane.showMessageDialog(this, "Impossível excluir compromisso!\n" + e.getLocalizedMessage());
 		} catch (IndexOutOfBoundsException e) {
 			JOptionPane.showMessageDialog(this,
@@ -196,19 +203,20 @@ public class CompromissoFrame extends JFrame {
 	}
 
 	/*
-	 * private void getValores(int index) { if (index <= compromissoList.size() - 1)
-	 * { Compromisso CompromissoAtual = (Compromisso) compromissoList.get(index);
+	 * private void getValores(int index) { if (index <= compromissoList.size()
+	 * - 1) { Compromisso CompromissoAtual = (Compromisso)
+	 * compromissoList.get(index);
 	 * txtContatoC.setText(CompromissoAtual.getContato().getNome());
 	 * txtDataC.setText(new
-	 * SimpleDateFormat("dd/MM/yyyy").format(CompromissoAtual.getDataCompromisso()))
-	 * ; txtHoraC.setText(CompromissoAtual.getHoraCompromisso());
+	 * SimpleDateFormat("dd/MM/yyyy").format(CompromissoAtual.getDataCompromisso
+	 * ())) ; txtHoraC.setText(CompromissoAtual.getHoraCompromisso());
 	 * txtObservacaoC.setText(CompromissoAtual.getObservacao()); } }
 	 * 
-	 * private void onClickUltimo() { registroAtual = compromissoList.size() - 1;
-	 * getValores(registroAtual); }
+	 * private void onClickUltimo() { registroAtual = compromissoList.size() -
+	 * 1; getValores(registroAtual); }
 	 * 
-	 * private void onClickProximo() { if (registroAtual != compromissoList.size() -
-	 * 1) { getValores(++registroAtual); } }
+	 * private void onClickProximo() { if (registroAtual !=
+	 * compromissoList.size() - 1) { getValores(++registroAtual); } }
 	 * 
 	 * private void onClickAnterior() { if (registroAtual != 0) {
 	 * getValores(--registroAtual); } }
@@ -229,9 +237,16 @@ public class CompromissoFrame extends JFrame {
 
 	private void localizar() {
 		// TODO Auto-generated method stub
+		String recupera = null;
+		if (txtLocaliza.getText().equals("") || txtLocaliza.getText() == null)
+			recupera = JOptionPane.showInputDialog(this, "Insira um nome para localizar seus compromissos!");
 		CompromissoController comp = new CompromissoController();
 		try {
-			Compromisso c = comp.buscaCompromissoPorNome(txtLocaliza.getText());
+			Compromisso c;
+			if (recupera != null)
+				c = comp.buscaCompromissoPorNome(recupera);
+			else
+				c = comp.buscaCompromissoPorNome(txtLocaliza.getText());
 			txtDataC.setText(new SimpleDateFormat("dd/MM/yyyy").format(c.getDataCompromisso()));
 			txtHoraC.setText(c.getHoraCompromisso());
 			txtContatoC.setText(c.getContato().getNome());
@@ -244,7 +259,9 @@ public class CompromissoFrame extends JFrame {
 					"Impossível localizar Compromisso com o nome inserido!\n" + e.getLocalizedMessage());
 
 		} catch (NullPointerException e) {
-			switch (JOptionPane.showOptionDialog(this, "Contato inexistente!\n Deseja Adicionar contato?",
+			limpar();
+			switch (JOptionPane.showOptionDialog(this,
+					"Algo não está certo, o usuário pode não ter compromissos ou existir! :(\n Deseja adicionar contato?",
 					"Contato não existe", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null,
 					null)) {
 			case 0:
@@ -284,7 +301,7 @@ public class CompromissoFrame extends JFrame {
 			JOptionPane.showMessageDialog(this, "Nao foi possível alterar seu compromisso!" + e.getLocalizedMessage());
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(this,
-					"Data possui formato inválido!\n" + "Coloque a data no formato bonito BR: dia/mês/ano");
+					"Data possui formato inválido!\n Coloque a data no formato bonito BR: dia/mês/ano");
 		}
 	}
 
