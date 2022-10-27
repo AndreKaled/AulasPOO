@@ -61,4 +61,9 @@ public class ContatoController {
         ContatoDao dao = new ContatoDao();
         return dao.findByName(nome);
     }
+    
+    public Contato buscaPorApelido(String apelido) throws SQLException{
+    	ContatoDao dao = new ContatoDao();
+    	return dao.findByNickName(apelido);
+    }
 }

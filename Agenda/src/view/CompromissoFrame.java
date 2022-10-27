@@ -53,7 +53,7 @@ public class CompromissoFrame extends JFrame {
 		lbDataC = new JLabel("Data");
 		lbContatoC = new JLabel("Nome do contato");
 		lbObservacaoC = new JLabel("Observação");
-		lbLocaliza = new JLabel("Localizar por contato");
+		lbLocaliza = new JLabel("Localizar por nome do contato");
 
 		// posicionando
 		lbDataC.setBounds(10, 10, 240, 15);
@@ -175,10 +175,10 @@ public class CompromissoFrame extends JFrame {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "Impossível salvar compromisso!");
-		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Data possui formato inválido!\n");
-		} catch (NullPointerException e) {
+		}  catch (NullPointerException e) {
 			JOptionPane.showMessageDialog(null, "Complete os dados antes de salvar!\n");
+		}catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "Data possui formato inválido!\n");
 		}
 		compromissoList = new CompromissoController().listaCompromissos();
 		limpar();
@@ -242,16 +242,17 @@ public class CompromissoFrame extends JFrame {
 			recupera = JOptionPane.showInputDialog(this, "Insira um nome para localizar seus compromissos!");
 		CompromissoController comp = new CompromissoController();
 		try {
-			Compromisso c;
+			Compromisso c = new Compromisso();
 			if (recupera != null)
 				c = comp.buscaCompromissoPorNome(recupera);
 			else
-				c = comp.buscaCompromissoPorNome(txtLocaliza.getText());
+				c = comp.buscaCompromissoPorNome("");
+			
 			txtDataC.setText(new SimpleDateFormat("dd/MM/yyyy").format(c.getDataCompromisso()));
 			txtHoraC.setText(c.getHoraCompromisso());
 			txtContatoC.setText(c.getContato().getNome());
 			txtObservacaoC.setText(c.getObservacao());
-
+			
 			key = c.getCodigo();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -260,6 +261,7 @@ public class CompromissoFrame extends JFrame {
 
 		} catch (NullPointerException e) {
 			limpar();
+			e.printStackTrace();
 			switch (JOptionPane.showOptionDialog(this,
 					"Algo não está certo, o usuário pode não ter compromissos ou existir! :(\n Deseja adicionar contato?",
 					"Contato não existe", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null,

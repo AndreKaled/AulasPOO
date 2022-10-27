@@ -64,8 +64,8 @@ public class CompromissoDao extends GenericDao{
         Compromisso compromisso = null;
         PreparedStatement stmt = 
 			getConnection().prepareStatement(select);
-			
-        stmt.setString(1, name);
+
+        stmt.setString(1, name+"%");
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {

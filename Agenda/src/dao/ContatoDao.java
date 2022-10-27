@@ -10,71 +10,91 @@ import model.Contato;
 
 public class ContatoDao extends GenericDao {
 
-    public void salvar(Contato contato) throws SQLException {
-        String insert = "INSERT INTO CONTATOS(nome, apelido, data_nascimento) VALUES(?,?,?)";
-        save(insert, contato.getNome(), contato.getApelido(), contato.getDtNascimento());
-    }
+	public void salvar(Contato contato) throws SQLException {
+		String insert = "INSERT INTO CONTATOS(nome, apelido, data_nascimento) VALUES(?,?,?)";
+		save(insert, contato.getNome(), contato.getApelido(), contato.getDtNascimento());
+	}
 
-    public void alterar(Contato contato) throws SQLException {
-        String update = "UPDATE CONTATOS " +
-                "SET nome = ?, apelido = ?, data_nascimento = ? " +
-                "WHERE id = ?";
-        update(update, contato.getId(), contato.getNome(), 
-               contato.getApelido(), contato.getDtNascimento());
-    }
+	public void alterar(Contato contato) throws SQLException {
+		String update = "UPDATE CONTATOS " + "SET nome = ?, apelido = ?, data_nascimento = ? " + "WHERE id = ?";
+		update(update, contato.getId(), contato.getNome(), contato.getApelido(), contato.getDtNascimento());
+	}
 
-    public void excluir(long id) throws SQLException {
-        String delete = "DELETE FROM CONTATOS WHERE id = ?";
-        delete(delete, id);
-    }
+	public void excluir(long id) throws SQLException {
+		String delete = "DELETE FROM CONTATOS WHERE id = ?";
+		delete(delete, id);
+	}
 
-    public List findContatos() throws SQLException {
-        List contatos = new ArrayList();
+	public List findContatos() throws SQLException {
+		List contatos = new ArrayList();
 
-        String select = "SELECT * FROM CONTATOS";
+		String select = "SELECT * FROM CONTATOS";
 
-        PreparedStatement stmt = 
-	    getConnection().prepareStatement(select);
-			
-        ResultSet rs = stmt.executeQuery();
+		PreparedStatement stmt = getConnection().prepareStatement(select);
 
-        while (rs.next()) {
-            Contato contato = new Contato();
-            contato.setId(rs.getLong("id"));
-            contato.setNome(rs.getString("nome"));
-            contato.setApelido(rs.getString("apelido"));
-            contato.setDtNascimento(rs.getDate("data_nascimento"));
-            contatos.add(contato);
-        }
+		ResultSet rs = stmt.executeQuery();
 
-        rs.close();
-        stmt.close();
-        getConnection().close();
+		while (rs.next()) {
+			Contato contato = new Contato();
+			contato.setId(rs.getLong("id"));
+			contato.setNome(rs.getString("nome"));
+			contato.setApelido(rs.getString("apelido"));
+			contato.setDtNascimento(rs.getDate("data_nascimento"));
+			contatos.add(contato);
+		}
 
-        return contatos;
-    }
+		rs.close();
+		stmt.close();
+		getConnection().close();
 
-    public Contato findByName(String nome) throws SQLException {
-        String select = "SELECT * FROM CONTATOS WHERE nome = ?";
-        Contato contato = null;
-        PreparedStatement stmt = 
-			getConnection().prepareStatement(select);
-			
-        stmt.setString(1, nome);
-        ResultSet rs = stmt.executeQuery();
+		return contatos;
+	}
 
-        while (rs.next()) {
-            contato = new Contato();
-            contato.setId(rs.getLong("id"));
-            contato.setNome(rs.getString("nome"));
-            contato.setApelido(rs.getString("apelido"));
-            contato.setDtNascimento(rs.getDate("data_nascimento"));
-        }
+	public Contato findByName(String nome) throws SQLException {
+		String select = "SELECT * FROM CONTATOS WHERE nome like ?";
+		Contato contato = null;
+		PreparedStatement stmt = getConnection().prepareStatement(select);
 
-        rs.close();
-        stmt.close();
-        getConnection().close();
+		stmt.setString(1, nome+"%");
+		ResultSet rs = stmt.executeQuery();
 
-        return contato;
-    }
+		while (rs.next()) {
+			contato = new Contato();
+			contato.setId(rs.getLong("id"));
+			contato.setNome(rs.getString("nome"));
+			contato.setApelido(rs.getString("apelido"));
+			contato.setDtNascimento(rs.getDate("data_nascimento"));
+		}
+
+		rs.close();
+		stmt.close();
+		getConnection().close();
+
+		return contato;
+	}
+
+	public Contato findByNickName(String apelido) throws SQLException {
+		String select = "SELECT * FROM CONTATOS WHERE apelido like ?";
+		Contato contato = null;
+
+		PreparedStatement stmt = getConnection().prepareStatement(select);
+
+		stmt.setString(1, apelido+"%");
+		ResultSet rs = stmt.executeQuery();
+
+		while (rs.next()) {
+			contato = new Contato();
+			contato.setId(rs.getLong("id"));
+			contato.setNome(rs.getString("nome"));
+			contato.setApelido(rs.getString("apelido"));
+			contato.setDtNascimento(rs.getDate("data_nascimento"));
+		}
+
+		rs.close();
+		stmt.close();
+		getConnection().close();
+
+		return contato;
+	}
+
 }

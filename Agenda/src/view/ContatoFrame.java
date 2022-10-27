@@ -20,6 +20,9 @@ public class ContatoFrame extends JFrame {
     private JButton btnSalvar, btnAlterar, btnExcluir, btnClear, btnLocalizar;
     private JButton btnPrimeiro, btnProximo, btnAnterior, btnUltimo;
     private JButton btnCompromisso;
+    private JButton btnLocalizarApelido;
+    private JTextField txtLocalizarApelido;
+    private JLabel lbApelidoLocaliza;
 
     private List contatoList = new ContatoController().listaContatos();
     private int registroAtual = 0;
@@ -113,15 +116,37 @@ public class ContatoFrame extends JFrame {
 
         btnLocalizar = new JButton("Ir");
         btnLocalizar.setBounds(230, 180, 55, 20);
+        
+        lbApelidoLocaliza = new JLabel("Localizar por apelido");
+        txtLocalizarApelido = new JTextField();
+        btnLocalizarApelido = new JButton("Ir");
+        
+        lbApelidoLocaliza.setBounds(10, 200,220,20);
+        txtLocalizarApelido.setBounds(10,220,220,20);
+        btnLocalizarApelido.setBounds(230,220,55,20);
+        
+        tela.add(btnLocalizarApelido);
+        tela.add(txtLocalizarApelido);
+        tela.add(lbApelidoLocaliza);
 
         tela.add(lbLocalizar);
         tela.add(txtLocalizar);
         tela.add(btnLocalizar);
 
-        setSize(400, 250);
+        setSize(400, 285);
         setVisible(true);
         setLocationRelativeTo(null);
 
+        btnLocalizarApelido.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				buscaApelido();
+			}
+        	
+        });
+        
         btnSalvar.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -195,7 +220,27 @@ public class ContatoFrame extends JFrame {
         );
     }
 
-    private void onClickUltimo() {
+    protected void buscaApelido() {
+		// TODO Auto-generated method stub
+		ContatoController c = new ContatoController();
+		
+		try {
+			Contato cont = c.buscaPorApelido(txtLocalizarApelido.getText());
+			txtNome.setText(cont.getNome());
+            txtApelido.setText(cont.getApelido());
+            txtDtNascimento.setText(
+				new SimpleDateFormat("dd/MM/yyyy").format(cont.getDtNascimento())
+			);
+			key = cont.getId();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "Aconteceu algum problema aqui amiguinho!");
+		}catch(NullPointerException e){
+			JOptionPane.showMessageDialog(this, "Apelido incorreto ou inexistente, tente novamente!");
+		}
+	}
+
+	private void onClickUltimo() {
         registroAtual = contatoList.size() - 1;
         getValores(registroAtual);
     }
