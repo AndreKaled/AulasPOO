@@ -6,7 +6,7 @@ public class Compromisso {
 
 	private Contato contato;
 	private String observacao, horaCompromisso;
-	private int codigo;
+	private long codigo;
 	private Date dataCompromisso;
 	
 	public Compromisso(){
@@ -58,13 +58,13 @@ public class Compromisso {
 
 
 
-	public int getCodigo() {
+	public long getCodigo() {
 		return codigo;
 	}
 
 
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(long codigo) {
 		this.codigo = codigo;
 	}
 

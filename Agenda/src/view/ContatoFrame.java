@@ -19,6 +19,7 @@ public class ContatoFrame extends JFrame {
     private JTextField txtNome, txtApelido, txtDtNascimento, txtLocalizar;
     private JButton btnSalvar, btnAlterar, btnExcluir, btnClear, btnLocalizar;
     private JButton btnPrimeiro, btnProximo, btnAnterior, btnUltimo;
+    private JButton btnCompromisso;
 
     private List contatoList = new ContatoController().listaContatos();
     private int registroAtual = 0;
@@ -68,6 +69,21 @@ public class ContatoFrame extends JFrame {
         btnAnterior = new JButton("<<");
         btnProximo = new JButton(">>");
         btnUltimo = new JButton(">|");
+        btnCompromisso = new JButton("Compromisso");
+        
+        btnCompromisso.setBounds(290,150,55,35);
+        
+        tela.add(btnCompromisso);
+        
+        btnCompromisso.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new CompromissoFrame();
+			}
+        	
+        });
 
         btnSalvar.setBounds(280, 25, 80, 20);
         btnAlterar.setBounds(280, 65, 80, 20);

@@ -11,7 +11,7 @@ import model.Contato;
 
 public class CompromissoDao extends GenericDao{
 
-	public void salvar(Compromisso compromisso) throws SQLException{
+	public void salvar(Compromisso compromisso) throws SQLException, NullPointerException{
 		String insert = "INSERT INTO compromisso (dataCompromisso,contato,observacao,horaCompromisso) VALUES (?,?,?,?)";
 		save(insert,compromisso.getDataCompromisso(),compromisso.getContato().getNome(),compromisso.getObservacao(),compromisso.getHoraCompromisso());
 	}
@@ -21,7 +21,7 @@ public class CompromissoDao extends GenericDao{
 	                "SET dataCompromisso = ?, contato = ?, observacao = ? , horaCompromisso = ?" +
 	                "WHERE codigo = ?";
 	        update(update, compromisso.getCodigo(), compromisso.getDataCompromisso(), 
-	        		compromisso.getContato(), compromisso.getObservacao(), compromisso.getHoraCompromisso());
+	        		compromisso.getContato().getNome(), compromisso.getObservacao(), compromisso.getHoraCompromisso());
 	}
 	
     public void excluir(long codigo) throws SQLException {
@@ -32,7 +32,7 @@ public class CompromissoDao extends GenericDao{
     public List findCompromissos() throws SQLException {
         List compromissos = new ArrayList();
 
-        String select = "SELECT * FROM CONTATOS";
+        String select = "SELECT * FROM COMPROMISSO";
 
         PreparedStatement stmt = 
 	    getConnection().prepareStatement(select);
@@ -41,7 +41,7 @@ public class CompromissoDao extends GenericDao{
 
         while (rs.next()) {
             Compromisso compromisso = new Compromisso();
-            compromisso.setCodigo(rs.getInt("cod"));
+            compromisso.setCodigo(rs.getInt("codigo"));
             compromisso.setDataCompromisso(rs.getDate("dataCompromisso"));
             
      
@@ -70,7 +70,7 @@ public class CompromissoDao extends GenericDao{
 
         while (rs.next()) {
             compromisso = new Compromisso();
-            compromisso.setCodigo(rs.getInt("codigo"));
+            compromisso.setCodigo(rs.getLong("codigo"));
             compromisso.setDataCompromisso(rs.getDate("dataCompromisso"));
            
             Contato contato = new Contato();

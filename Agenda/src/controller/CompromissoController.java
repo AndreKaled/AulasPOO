@@ -16,7 +16,7 @@ import util.Util;
 public class CompromissoController {
 
 	public void salvar(Date dataCompromisso, String horaCompromisso, String nomeContato, String observacao)
-			throws SQLException, ParseException {
+			throws SQLException, ParseException,NullPointerException {
 		Compromisso compromisso = new Compromisso();
 		compromisso.setDataCompromisso(dataCompromisso);
 
@@ -29,7 +29,7 @@ public class CompromissoController {
 		new CompromissoDao().salvar(compromisso);
 	}
 
-	public void alterar(int codigo, String observacao, String dataCompromisso, String horaCompromisso,
+	public void alterar(long codigo, String observacao, String dataCompromisso, String horaCompromisso,
 			String nomeContato) throws ParseException, SQLException {
 
 		Compromisso compromisso = new Compromisso();
@@ -50,7 +50,7 @@ public class CompromissoController {
 		try {
 			return dao.findCompromissos();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Problemas ao localizar compromisso" + e.getLocalizedMessage());
+			JOptionPane.showMessageDialog(null, "Problemas ao localizar compromissos" + e.getLocalizedMessage());
 		}
 		return null;
 	}
