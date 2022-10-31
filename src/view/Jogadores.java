@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -25,9 +26,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import modelo.Jogador;
-import Banco.JogadorDAO;
 import Controller.JogadorController;
+import modelo.Jogador;
 
 public class Jogadores extends JPanel {
 	// instanciando as coisinhas
@@ -224,22 +224,7 @@ public class Jogadores extends JPanel {
 		tfVermelho.setBorder(null);
 
 		// fazendo com que quando clicar 1 vez no texto deixe a caixa nula.
-		tfLilas.addMouseListener(new MouseListener() {
-
-			// default
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
-
-			// default
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			@Override
-			// default
-			public void mouseExited(MouseEvent arg0) {
-			}
+		tfLilas.addMouseListener(new MouseAdapter() {
 
 			// tornando a caixa vazia quando clicado pela primeira vez
 			@Override
@@ -251,28 +236,10 @@ public class Jogadores extends JPanel {
 				}
 			}
 
-			// default
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-			}
 
 		});
-		tfVerde.addMouseListener(new MouseListener() {
-
-			// default
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
-
-			// default
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			@Override
-			// default
-			public void mouseExited(MouseEvent arg0) {
-			}
+		
+		tfVerde.addMouseListener(new MouseAdapter() {
 
 			// tornando a caixa vazia quando clicado pela primeira vez
 			@Override
@@ -283,29 +250,9 @@ public class Jogadores extends JPanel {
 					tfVerde.setForeground(Color.BLACK);
 				}
 			}
-
-			// default
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-			}
-
 		});
-		tfRosa.addMouseListener(new MouseListener() {
-
-			// default
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
-
-			// default
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			@Override
-			// default
-			public void mouseExited(MouseEvent arg0) {
-			}
+		
+		tfRosa.addMouseListener(new MouseAdapter() {
 
 			// tornando a caixa vazia quando clicado pela primeira vez
 			@Override
@@ -316,29 +263,9 @@ public class Jogadores extends JPanel {
 					tfRosa.setForeground(Color.BLACK);
 				}
 			}
-
-			// default
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-			}
-
 		});
-		tfLaranja.addMouseListener(new MouseListener() {
-
-			// default
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
-
-			// default
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			@Override
-			// default
-			public void mouseExited(MouseEvent arg0) {
-			}
+		
+		tfLaranja.addMouseListener(new MouseAdapter() {
 
 			// tornando a caixa vazia quando clicado pela primeira vez
 			@Override
@@ -349,29 +276,9 @@ public class Jogadores extends JPanel {
 					tfLaranja.setForeground(Color.BLACK);
 				}
 			}
-
-			// default
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-			}
-
 		});
-		tfVermelho.addMouseListener(new MouseListener() {
-
-			// default
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
-
-			// default
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			@Override
-			// default
-			public void mouseExited(MouseEvent arg0) {
-			}
+		
+		tfVermelho.addMouseListener(new MouseAdapter() {
 
 			// tornando a caixa vazia quando clicado pela primeira vez
 			@Override
@@ -382,29 +289,9 @@ public class Jogadores extends JPanel {
 					tfVermelho.setForeground(Color.BLACK);
 				}
 			}
-
-			// default
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-			}
-
 		});
-		tfAmarelo.addMouseListener(new MouseListener() {
-
-			// default
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
-
-			// default
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			@Override
-			// default
-			public void mouseExited(MouseEvent arg0) {
-			}
+		
+		tfAmarelo.addMouseListener(new MouseAdapter() {
 
 			// tornando a caixa vazia quando clicado pela primeira vez
 			@Override
@@ -415,13 +302,8 @@ public class Jogadores extends JPanel {
 					tfAmarelo.setForeground(Color.BLACK);
 				}
 			}
-
-			// default
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-			}
-
 		});
+		
 	}
 
 	/** ha um bug aqui, sÃ¯Â¿Â½ estÃ¯Â¿Â½ indo para a tela do Modo Facil */
@@ -438,6 +320,7 @@ public class Jogadores extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					iniciaJogo();
+					throw new SQLException();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					 JOptionPane.showMessageDialog(null, "Aconteceu um erro ao iniciar o Jogo!" + e.getLocalizedMessage());

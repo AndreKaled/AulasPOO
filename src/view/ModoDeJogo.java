@@ -12,6 +12,7 @@ package view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -83,6 +84,7 @@ public class ModoDeJogo extends JPanel {
 		panelInfoFacil.setLayout(null);
 		panelInfoFacil.setVisible(false);
 		panelInfoFacil.setFocusable(false);
+		panelInfoFacil.setOpaque(false);
 		panelInfoFacil.setBounds(panelFacil.getBounds());
 		add(panelInfoFacil);
 
@@ -97,6 +99,7 @@ public class ModoDeJogo extends JPanel {
 		panelInfoDificil.setLayout(null);
 		panelInfoDificil.setVisible(false);
 		panelInfoDificil.setFocusable(false);
+		panelInfoDificil.setOpaque(false);
 		panelInfoDificil.setBounds(panelDificil.getBounds());
 		add(panelInfoDificil);
 
@@ -114,16 +117,14 @@ public class ModoDeJogo extends JPanel {
 		});
 
 		// configura a area de informacoes do modo facil
-		panelInfoFacil.addMouseListener(new ActionListener() {
+		panelInfoFacil.addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void mouseClicked(MouseEvent e){
 				panelInfoFacil.setVisible(false);
 				panelFacil.setVisible(true);
 				infoFacil.setVisible(true);
-
 			}
-
 		});
 
 		infoDificil.addActionListener(new ActionListener() {
@@ -138,16 +139,15 @@ public class ModoDeJogo extends JPanel {
 
 		});
 
-		panelInfoDificil.addMouseListener(new ActionListener() {
+		panelInfoDificil.addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void mouseClicked(MouseEvent e){
 				panelInfoDificil.setVisible(false);
 				panelDificil.setVisible(true);
 				infoDificil.setVisible(true);
 
 			}
-
 		});
 	}
 
